@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import Intake from './Intake';
 import Enclosure from './Enclosure';
 
 class App extends Component {
@@ -26,6 +26,7 @@ class App extends Component {
         
     return (
       <div className="App">
+        <Intake />
         {this.state.animals.map( (beasty) => <Enclosure animal={beasty} />)}
       </div>
     );
