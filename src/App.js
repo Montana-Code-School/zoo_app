@@ -5,14 +5,32 @@ import Enclosure from './Enclosure';
 
 class App extends Component {
   state = {
-    animal: 'tiger'
-  }
+    animals: [{
+      name: 'tiger', 
+      predator: true,
+      age: 7,
+    },
+    {
+      name: 'horse', 
+      predator: false,
+      age: 10,
+    },
+    {
+      name: 'echidna', 
+      predator: true,
+      age: 2,
+    },
+  ]}
+
   render() {
+    const enclosedAnimals = [];
+    for (let i = 0; i < this.state.animals.length; i++){
+      enclosedAnimals.push(<Enclosure animal={this.state.animals[i]} />)
+    } 
+    
     return (
       <div className="App">
-        <Enclosure animal={this.state.animal} predator={true} />
-        <Enclosure animal={'horse'} predator={false} />
-        <Enclosure animal={'echidna'} predator={true}/>
+        {this.state.animals.map( (x) => <Enclosure animal={x} />)}
       </div>
     );
   }
