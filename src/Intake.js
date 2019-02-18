@@ -3,24 +3,6 @@ import "./Intake.css"
 
 
 class Intake extends Component {
-  state = {
-    animal: 'monkey',
-    age: 22,
-    predator: false,
-  }
-
-  intakeHandler = (e) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
-    console.log(e.target.checked);
-    const newAnimal = {...this.state}
-    if (e.target.type === 'checkbox') {
-      newAnimal[e.target.name] = e.target.checked
-    } else {
-      newAnimal[e.target.name] = e.target.value
-    }
-    this.setState(newAnimal) 
-  }
   
   render() {
     return (
@@ -32,7 +14,8 @@ class Intake extends Component {
             className="Critter" 
             id="AnimalName" 
             name="animal"
-            onChange={(e) => {this.intakeHandler(e)}}
+            value={this.props.animal}
+            onChange={(e) => {this.props.intakeHandler(e)}}
           />
           <br />
           <label for="AnimalAge">Animal Age: </label>
@@ -41,7 +24,8 @@ class Intake extends Component {
             className="Age" 
             id="AnimalAge"             
             name="age"
-            onChange={(e) => {this.intakeHandler(e)}}
+            value={this.props.age}
+            onChange={(e) => {this.props.intakeHandler(e)}}
           />
           <br />
           <label for="AnimalPredator">Animal is predator? </label>
@@ -50,12 +34,16 @@ class Intake extends Component {
             className="Predator" 
             id="AnimalPredator"             
             name="predator"
-            onChange={(e) => {this.intakeHandler(e)}}
+            checked={this.props.predator}
+            onChange={(e) => {this.props.intakeHandler(e)}}
           />
+          <button name="contribute" onClick={ (e) => {this.props.addAnimal(e)}}>
+            Add Animal to the Zoo
+          </button>
         </form>
-        {this.state.animal} <br/>
-        {this.state.age}<br/>
-        {this.state.predator? 'I is a predator.': 'I is not a predator.'}
+        {this.props.animal} <br/>
+        {this.props.age}<br/>
+        {this.props.predator? 'I is a predator.': 'I is not a predator.'}
       </div>
     );
   }
