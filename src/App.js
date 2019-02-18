@@ -1,28 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import Elephant from './Elephant';
+import Enclosure from './Enclosure';
 
 class App extends Component {
+  state = {
+    animal: 'tiger'
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <Elephant />
+        <Enclosure animal={this.state.animal} predator={true} />
+        <Enclosure animal={'horse'} predator={false} />
+        <Enclosure animal={'echidna'} predator={true}/>
       </div>
     );
   }
