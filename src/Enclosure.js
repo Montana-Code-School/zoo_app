@@ -5,11 +5,9 @@ class Enclosure extends Component {
   render() {
     return (
       <div className="Enclosure">
-        <h1>Hi, I'm the {this.props.animal.name} Enclosure!</h1>
-        <h1> {this.props.animal.predator? `I am a predator`: `I am going to die`} </h1>
-
+        <h2>Hi, I'm the {this.props.animal.name} and I'm {this.props.animal.age} years old.</h2>
+        <h2> {this.props.animal.predator? `I am a predator`: `I am going to die`} </h2>
       </div>
-      
     );
   }
 }

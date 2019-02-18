@@ -23,14 +23,10 @@ class App extends Component {
   ]}
 
   render() {
-    const enclosedAnimals = [];
-    for (let i = 0; i < this.state.animals.length; i++){
-      enclosedAnimals.push(<Enclosure animal={this.state.animals[i]} />)
-    } 
-    
+        
     return (
       <div className="App">
-        {this.state.animals.map( (x) => <Enclosure animal={x} />)}
+        {this.state.animals.map( (beasty) => <Enclosure animal={beasty} />)}
       </div>
     );
   }
