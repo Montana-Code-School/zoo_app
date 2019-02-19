@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import "./Enclosure.css"
 
 class Enclosure extends Component {
@@ -11,5 +12,14 @@ class Enclosure extends Component {
     );
   }
 }
+
+Enclosure.propTypes = {
+  animal: PropTypes.shape({
+    name: PropTypes.string,
+    age: PropTypes.number,
+    predator: PropTypes.bool
+  })
+}
+
 
 export default Enclosure;

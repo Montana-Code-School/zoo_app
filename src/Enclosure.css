@@ -2,6 +2,7 @@
   background: coral;
   width: 25%;
   height: 44vh;
-  margin-left: 10px;
+  margin: 10px;
   text-align: center;
+  border: 2px dashed black; 
 }
