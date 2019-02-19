@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import "./Intake.css"
-
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 class Intake extends Component {
-  
   render() {
     return (
-      <div className="Intake">
+      <IntakeStyles>
         <form className="IntakeForm">
-          <label for="AnimalName">Animal Type: </label>
+          <label htmlFor="AnimalName">Animal Type: </label>
           <input 
             type="text" 
             className="Critter" 
@@ -18,7 +17,7 @@ class Intake extends Component {
             onChange={(e) => {this.props.intakeHandler(e)}}
           />
           <br />
-          <label for="AnimalAge">Animal Age: </label>
+          <label htmlFor="AnimalAge">Animal Age: </label>
           <input 
             type="number" 
             className="Age" 
@@ -28,7 +27,7 @@ class Intake extends Component {
             onChange={(e) => {this.props.intakeHandler(e)}}
           />
           <br />
-          <label for="AnimalPredator">Animal is predator? </label>
+          <label htmlFor="AnimalPredator">Animal is predator? </label>
           <input 
             type="checkbox" 
             className="Predator" 
@@ -44,9 +43,27 @@ class Intake extends Component {
         {this.props.animal} <br/>
         {this.props.age}<br/>
         {this.props.predator? 'I is a predator.': 'I is not a predator.'}
-      </div>
+      </IntakeStyles>
     );
   }
 }
+
+Intake.propTypes ={
+  animal: PropTypes.string.isRequired,
+  age: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  intakeHandler: PropTypes.func.isRequired,
+  addAnimal: PropTypes.func.isRequired,
+  predator: PropTypes.bool.isRequired,
+}
+
+const IntakeStyles = styled.div`
+  background-color: aquamarine;
+  width: 22%;
+  height: 22vh;
+  margin: 10px;
+  text-align: center;
+  padding: 10px 10px;
+  flex: 1;
+`
 
 export default Intake;
