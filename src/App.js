@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
+import styled, { css  } from 'styled-components';
 
 import './App.css';
 import Intake from './Intake';
 import Enclosure from './Enclosure';
-
+import Corral from './Corral';
 
 class App extends Component {
   state = {
@@ -71,17 +72,9 @@ class App extends Component {
           addAnimal={this.addAnimal}
           predator={this.state.predator}
         />
-        <div className="CorralWrapper">
-          <p className="CorralHeader">Corral</p>
-          <div className="Corral">
-            {this.state.animals.map( (beasty) => 
-              <Enclosure 
-                key={beasty.id}   
-                animal={beasty} 
-              />
-            )}
-          </div>
-        </div>
+        <Corral
+          animals={this.state.animals}
+        />
       </div>
     );
   }
