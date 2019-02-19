@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import "./Enclosure.css"
+import styled from 'styled-components';
 
-class Enclosure extends Component {
-  render() {
-    return (
-      <div className="Enclosure">
-        <h2>Hi, I'm the {this.props.animal.name} and I'm {this.props.animal.age} years old.</h2>
-        <h2> {this.props.animal.predator? `I am a predator`: `I am going to die`} </h2>
-      </div>
-    );
-  }
+function enclosure({animal}) {
+  return (
+    <EnclosureStyles {...animal}>
+      <h2>Hi, I'm the {animal.name} and I'm {animal.age} years old.</h2>
+      <h2> {animal.predator? `I am a predator`: `I am not a predator`} </h2>
+    </EnclosureStyles>
+  );
 }
 
-Enclosure.propTypes = {
+enclosure.propTypes = {
   animal: PropTypes.shape({
     name: PropTypes.string,
     age: PropTypes.number,
@@ -21,5 +19,13 @@ Enclosure.propTypes = {
   })
 }
 
+const EnclosureStyles = styled.div`
+  background: ${props => props.predator ? 'darkred' : 'green'};
+  width: 25%;
+  height: 44vh;
+  margin: 10px;
+  text-align: center;
+  border: 2px dashed black;
+`
 
-export default Enclosure;
+export default enclosure;

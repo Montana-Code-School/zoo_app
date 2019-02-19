@@ -1,24 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import './Corral.css';
 import Enclosure from './Enclosure';
 
-class Corral extends Component {
-  render() {
-    return (
-      <div className="CorralWrapper">
-        <p className="CorralHeader">Corral</p>
-        <div className="Corral">
-          {this.props.animals.map( (beasty) => 
-            <Enclosure 
-              key={beasty.id}   
-              animal={beasty} 
-            />
-          )}
-        </div>
-      </div>
-    );
-  }
-}
+function corral({animals}) {
+  return (
+    <CorralWrapper>
+      <CorralHeader>Corral</CorralHeader>
+      <CorralStyles>
+        {animals.map( (beasty) => 
+          <Enclosure 
+            key={beasty.id}   
+            animal={beasty} 
+          />
+        )}
+      </CorralStyles>
+    </CorralWrapper>
+  );
+};
 
-export default Corral;
+corral.propTypes = {
+  animals: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    age: PropTypes.number,
+    predator: PropTypes.bool
+  }))
+};
+
+const CorralWrapper = styled.div`
+  flex: 4;
+  text-align: center;
+`
+
+const CorralHeader = styled.p`
+  font-size: 1.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+`
+const CorralStyles = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid skyblue;
+  justify-content: space-evenly;
+`
+
+export default corral;

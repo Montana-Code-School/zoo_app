@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import "./Intake.css"
+import styled from 'styled-components';
 
 class Intake extends Component {
   render() {
     return (
-      <div className="Intake">
+      <IntakeStyles>
         <form className="IntakeForm">
           <label htmlFor="AnimalName">Animal Type: </label>
           <input 
@@ -43,7 +43,7 @@ class Intake extends Component {
         {this.props.animal} <br/>
         {this.props.age}<br/>
         {this.props.predator? 'I is a predator.': 'I is not a predator.'}
-      </div>
+      </IntakeStyles>
     );
   }
 }
@@ -55,5 +55,15 @@ Intake.propTypes ={
   addAnimal: PropTypes.func.isRequired,
   predator: PropTypes.bool.isRequired,
 }
+
+const IntakeStyles = styled.div`
+  background-color: aquamarine;
+  width: 22%;
+  height: 22vh;
+  margin: 10px;
+  text-align: center;
+  padding: 10px 10px;
+  flex: 1;
+`
 
 export default Intake;
