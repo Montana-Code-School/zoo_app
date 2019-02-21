@@ -21,7 +21,7 @@ class App extends Component {
         this.setState({animals: myJson});
       })
   }
-  
+
 
   intakeHandler = (e) => {
     const newAnimal = {...this.state};
@@ -33,28 +33,37 @@ class App extends Component {
     } else {
       newAnimal[e.target.name] = e.target.value;
     }
-    this.setState(newAnimal); 
+    this.setState(newAnimal);
   }
 
   addAnimal = (e) => {
     e.preventDefault();
     const {animal, age, predator} = this.state;
-    const newCritter = {name: animal, age, predator, id: uuid()};
-    const updatedAnimals = this.state.animals.slice();
-    updatedAnimals.push(newCritter);
-    this.setState({
-      animals: updatedAnimals,
-      animal: "",
-      age: 0,
-      predator: false,
+    const customPath = `/?name=${animal}&age=${age}&predator=${predator}`
+    fetch(`http://localhost:3001${customPath}`, {
+      method: "POST",
     })
+      .then(response => response.json())
+      .then((newCritter) => {
+        const updatedAnimals = this.state.animals.slice();
+        updatedAnimals.push(newCritter);
+        this.setState({
+          animals: updatedAnimals,
+          animal: "",
+          age: 0,
+          predator: false,
+        })
+
+      })
   }
 
+
+
   render() {
-        
+
     return (
       <AppStyles>
-        <Intake 
+        <Intake
           animal={this.state.animal}
           age={this.state.age}
           intakeHandler={this.intakeHandler}
