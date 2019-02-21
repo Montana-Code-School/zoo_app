@@ -6,31 +6,22 @@ import Intake from './Intake';
 import Corral from './Corral';
 
 class App extends Component {
+
   state = {
-    animals: [
-      {
-        name: 'tiger', 
-        predator: true,
-        age: 7,
-        id: uuid(),
-      },
-      {
-        name: 'horse', 
-        predator: false,
-        age: 10,
-        id: uuid(),
-      },
-      {
-        name: 'echidna', 
-        predator: true,
-        age: 2,
-        id: uuid(),
-      },
-    ],
+    animals: [],
     animal: 'monkey',
     age: 22,
     predator: false,
   }
+
+  componentDidMount() {
+    fetch('http://localhost:3001')
+      .then(response => response.json())
+      .then((myJson) => {
+        this.setState({animals: myJson});
+      })
+  }
+  
 
   intakeHandler = (e) => {
     const newAnimal = {...this.state};
