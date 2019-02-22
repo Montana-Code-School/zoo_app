@@ -40,9 +40,24 @@ class Intake extends Component {
             Add Animal to the Zoo
           </button>
         </form>
-        {this.props.animal} <br/>
-        {this.props.age}<br/>
-        {this.props.predator? 'I is a predator.': 'I is not a predator.'}
+        <form>
+          <label htmlFor="DeleteAnimal">Animal Id to delete </label>
+          <select 
+            onChange={(e) => {this.props.intakeHandler(e)}}
+            name="AnimalDelete"
+          >
+            {this.props.animals.map(animal => 
+              <option 
+                key={animal._id} 
+                value={animal._id}>
+                  {animal.name}
+              </option>
+            )}
+          </select>
+          <button name="delete" onClick={ (e) => {this.props.deleteAnimal(e)}}>
+            Delete Animal
+          </button>
+        </form>
       </IntakeStyles>
     );
   }
@@ -54,6 +69,13 @@ Intake.propTypes ={
   intakeHandler: PropTypes.func.isRequired,
   addAnimal: PropTypes.func.isRequired,
   predator: PropTypes.bool.isRequired,
+  deleteAnimal: PropTypes.func.isRequired,
+  animals: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    age: PropTypes.number,
+    predator: PropTypes.bool,
+    _id: PropTypes.string,
+  }))
 }
 
 const IntakeStyles = styled.div`

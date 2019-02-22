@@ -11,7 +11,7 @@ function corral({animals}) {
       <CorralStyles>
         {animals.map( (beasty) => 
           <Enclosure 
-            key={beasty.id}   
+            key={beasty._id}   
             animal={beasty} 
           />
         )}
