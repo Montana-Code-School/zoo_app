@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import uuid from 'uuid';
 import styled from 'styled-components';
 
 import Intake from './Intake';
@@ -12,7 +11,10 @@ class App extends Component {
     animal: 'monkey',
     age: 22,
     predator: false,
+    _id: '',
+    AnimalDelete:''
   }
+
 
   componentDidMount() {
     fetch('http://localhost:3001')
@@ -24,16 +26,15 @@ class App extends Component {
 
 
   intakeHandler = (e) => {
-    const newAnimal = {...this.state};
-    console.log(typeof e.target.value);
+    const newState = {...this.state};
     if (e.target.type === 'checkbox') {
-      newAnimal[e.target.name] = e.target.checked;
+      newState[e.target.name] = e.target.checked;
     } else if (e.target.type === 'number') {
-      newAnimal[e.target.name] = parseInt(e.target.value, 10) || '';
+      newState[e.target.name] = parseInt(e.target.value, 10) || '';
     } else {
-      newAnimal[e.target.name] = e.target.value;
+      newState[e.target.name] = e.target.value;
     }
-    this.setState(newAnimal);
+    this.setState(newState);
   }
 
   addAnimal = (e) => {
@@ -52,12 +53,41 @@ class App extends Component {
           animal: "",
           age: 0,
           predator: false,
+          _id: '',
+          AnimalDelete:''
         })
 
       })
   }
 
+  deleteID(arr, id){
+    const crittersToKeep = arr.slice();
+    for (let i = 0; i < crittersToKeep.length; i++) {
+      if (crittersToKeep[i]._id === id){
+        crittersToKeep.splice(i, 1);
+      }
+    }
+    return crittersToKeep;
+  }
 
+  deleteAnimal = (e) => {
+    e.preventDefault();
+    const {AnimalDelete} = this.state;
+    const customPath = `/${AnimalDelete}`
+    fetch(`http://localhost:3001${customPath}`, {
+      method: "DELETE",
+    })
+      .then(response => response.json())
+      .then((deletedCritter) => {
+        const {animals} = this.state;
+        const newAnimals = this.deleteID(animals, deletedCritter._id )
+        this.setState({
+          animals: newAnimals,
+          AnimalDelete: "",
+        })
+
+      })
+  }
 
   render() {
 
@@ -69,8 +99,12 @@ class App extends Component {
           intakeHandler={this.intakeHandler}
           addAnimal={this.addAnimal}
           predator={this.state.predator}
+          deleteAnimal={this.deleteAnimal}
+          _id={this.state.AnimalDelete}
+          animals={this.state.animals}
         />
         <Corral
+          
           animals={this.state.animals}
         />
       </AppStyles>
