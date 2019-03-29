@@ -12,12 +12,12 @@ class App extends Component {
     age: 22,
     predator: false,
     _id: '',
-    AnimalDelete:''
+    deleteId:''
   }
 
 
   componentDidMount() {
-    fetch('http://localhost:3001')
+    fetch('http://localhost:3005')
       .then(response => response.json())
       .then((myJson) => {
         this.setState({animals: myJson});
@@ -32,6 +32,7 @@ class App extends Component {
     } else if (e.target.type === 'number') {
       newState[e.target.name] = parseInt(e.target.value, 10) || '';
     } else {
+      console.log(e.target.name);
       newState[e.target.name] = e.target.value;
     }
     this.setState(newState);
@@ -41,7 +42,7 @@ class App extends Component {
     e.preventDefault();
     const {animal, age, predator} = this.state;
     const customPath = `/?name=${animal}&age=${age}&predator=${predator}`
-    fetch(`http://localhost:3001${customPath}`, {
+    fetch(`http://localhost:3005${customPath}`, {
       method: "POST",
     })
       .then(response => response.json())
@@ -54,9 +55,8 @@ class App extends Component {
           age: 0,
           predator: false,
           _id: '',
-          AnimalDelete:''
+          deleteId:''
         })
-
       })
   }
 
@@ -72,9 +72,11 @@ class App extends Component {
 
   deleteAnimal = (e) => {
     e.preventDefault();
-    const {AnimalDelete} = this.state;
-    const customPath = `/${AnimalDelete}`
-    fetch(`http://localhost:3001${customPath}`, {
+    const {deleteId} = this.state;
+    if (!deleteId) return;
+    console.log(deleteId);
+    const customPath = `/${deleteId}`
+    fetch(`http://localhost:3005${customPath}`, {
       method: "DELETE",
     })
       .then(response => response.json())
@@ -83,7 +85,7 @@ class App extends Component {
         const newAnimals = this.deleteID(animals, deletedCritter._id )
         this.setState({
           animals: newAnimals,
-          AnimalDelete: "",
+          deleteId: "",
         })
 
       })
@@ -100,11 +102,11 @@ class App extends Component {
           addAnimal={this.addAnimal}
           predator={this.state.predator}
           deleteAnimal={this.deleteAnimal}
-          _id={this.state.AnimalDelete}
+          _id={this.state.deleteId}
           animals={this.state.animals}
         />
         <Corral
-          
+
           animals={this.state.animals}
         />
       </AppStyles>

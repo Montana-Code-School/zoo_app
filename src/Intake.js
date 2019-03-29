@@ -8,30 +8,30 @@ class Intake extends Component {
       <IntakeStyles>
         <form className="IntakeForm">
           <label htmlFor="AnimalName">Animal Type: </label>
-          <input 
-            type="text" 
-            className="Critter" 
-            id="AnimalName" 
+          <input
+            type="text"
+            className="Critter"
+            id="AnimalName"
             name="animal"
             value={this.props.animal}
             onChange={(e) => {this.props.intakeHandler(e)}}
           />
           <br />
           <label htmlFor="AnimalAge">Animal Age: </label>
-          <input 
-            type="number" 
-            className="Age" 
-            id="AnimalAge"             
+          <input
+            type="number"
+            className="Age"
+            id="AnimalAge"
             name="age"
             value={this.props.age}
             onChange={(e) => {this.props.intakeHandler(e)}}
           />
           <br />
           <label htmlFor="AnimalPredator">Animal is predator? </label>
-          <input 
-            type="checkbox" 
-            className="Predator" 
-            id="AnimalPredator"             
+          <input
+            type="checkbox"
+            className="Predator"
+            id="AnimalPredator"
             name="predator"
             checked={this.props.predator}
             onChange={(e) => {this.props.intakeHandler(e)}}
@@ -42,19 +42,24 @@ class Intake extends Component {
         </form>
         <form>
           <label htmlFor="DeleteAnimal">Animal Id to delete </label>
-          <select 
+          <select
             onChange={(e) => {this.props.intakeHandler(e)}}
-            name="AnimalDelete"
+            name="deleteId"
           >
-            {this.props.animals.map(animal => 
-              <option 
-                key={animal._id} 
+            <option>Select an animal to delete</option>
+            {this.props.animals.map(animal =>
+              <option
+                key={animal._id}
                 value={animal._id}>
                   {animal.name}
               </option>
             )}
           </select>
-          <button name="delete" onClick={ (e) => {this.props.deleteAnimal(e)}}>
+          <button
+            disabled={!this.props._id}
+            name="delete"
+            onClick={ (e) => {this.props.deleteAnimal(e)}}
+          >
             Delete Animal
           </button>
         </form>
